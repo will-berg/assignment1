@@ -7,7 +7,7 @@ import numpy as np
 def decide():
 	CMV = set_CMV()
 	PUM = set_PUM(CMV)
-	FUV = set_FUV(PUM)
+	FUV = set_FUV(PUM, d.PUV_MATRIX)
 
 	if np.all(FUV):
 		launch = True
@@ -35,9 +35,9 @@ def set_PUM(CMV):
 
 # FUV is a boolean vector which is the basis for deciding whether to launch
 # If all elements of the FUV are true, a launch should occur.
-def set_FUV(PUM):
-	FUV = np.full(shape=15, fill_value=False)
-
+def set_FUV(PUM, PUV_MATRIX):
+	FUV = np.full(shape=d.DIMENSION, fill_value=False)
+	
 	return FUV
 
 

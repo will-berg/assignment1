@@ -6,26 +6,27 @@ PI = np.pi
 # Inputs to the decide() function
 class Parameters:
 	def __init__(
+		# TODO : improve defaults
 			self,
-			length1=0,
+			length1=1,
 			radius1=1,
-			epsilon=2,
-			area1=3,
-			q_pts=4,
-			quads=4,
-			dist=6,
-			n_pts=6,
-			k_pts=7,
-			a_pts=8,
-			b_pts=8,
-			c_pts=9,
-			d_pts=9,
-			e_pts=10,
-			f_pts=10,
-			g_pts=11,
-			length2=12,
-			radius2=13,
-			area2=14
+			epsilon=1,
+			area1=1,
+			q_pts=1,
+			quads=1,
+			dist=1,
+			n_pts=1,
+			k_pts=1,
+			a_pts=1,
+			b_pts=1,
+			c_pts=1,
+			d_pts=1,
+			e_pts=1,
+			f_pts=1,
+			g_pts=1,
+			length2=1,
+			radius2=1,
+			area2=1
 		):
 
 		self.length1 = length1
@@ -48,12 +49,14 @@ class Parameters:
 		self.radius2 = radius2
 		self.area2 = area2
 
-# Global variable declarations
+# Global variable declarationss
 PARAMETERS = Parameters()
 
-X = np.ones(shape=(100))
-Y = np.ones(shape=(100))
 NUMPOINTS = 100
+X = np.ones(shape=(NUMPOINTS))
+Y = np.ones(shape=(NUMPOINTS))
 
-LCM_MATRIX = np.full(shape=(15, 15), fill_value=1)
+DIMENSION = 15
 
+LCM_MATRIX = np.full(shape=(DIMENSION, DIMENSION), fill_value=1)
+PUV_MATRIX = np.full(shape=DIMENSION, fill_value=True)
