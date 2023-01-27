@@ -57,6 +57,5 @@ X = np.ones(shape=(NUMPOINTS))
 Y = np.ones(shape=(NUMPOINTS))
 
 DIMENSION = 15
-
-LCM_MATRIX = np.full(shape=(DIMENSION, DIMENSION), fill_value=1)
-PUV_MATRIX = np.full(shape=DIMENSION, fill_value=True)
+LCM = np.full(shape=(DIMENSION, DIMENSION), fill_value=1)
+PUV = np.full(shape=DIMENSION, fill_value=True)

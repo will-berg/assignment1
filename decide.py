@@ -6,8 +6,8 @@ import numpy as np
 # Based upon input radar tracking information in PARAMETERS
 def decide():
 	CMV = set_CMV()
-	PUM = set_PUM(CMV)
-	FUV = set_FUV(PUM)
+	PUM = set_PUM(CMV, d.LCM)
+	FUV = set_FUV(PUM, d.PUV)
 
 	if np.all(FUV):
 		launch = True
@@ -27,7 +27,7 @@ def set_CMV():
 
 # Every element of the boolean PUM corresponds to an element of the LCM.
 # If the logical connection dictated by the LCM element gives the value “true”, the corresponding PUM element is set to true.
-def set_PUM(CMV):
+def set_PUM(CMV, LCM):
 	PUM = np.full(shape=(d.DIMENSION, d.DIMENSION), fill_value=False)
 
 	return PUM
@@ -35,7 +35,7 @@ def set_PUM(CMV):
 
 # FUV is a boolean vector which is the basis for deciding whether to launch
 # If all elements of the FUV are true, a launch should occur.
-def set_FUV(PUM):
+def set_FUV(PUM, PUV):
 	FUV = np.full(shape=d.DIMENSION, fill_value=False)
 
 	return FUV
