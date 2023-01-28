@@ -37,8 +37,15 @@ def set_PUM(CMV, LCM):
 # If all elements of the FUV are true, a launch should occur.
 def set_FUV(PUM, PUV):
 	FUV = np.full(shape=d.DIMENSION, fill_value=False)
-
+	for i in range(d.DIMENSION):
+		FUV[i] = set_FUV_element(PUM, PUV, i)
 	return FUV
+
+def set_FUV_element(PUM, PUV, i):
+	if PUV[i] == False or np.all(PUM[i]):
+		return True
+	else:
+		return False
 
 
 if __name__ == "__main__":
