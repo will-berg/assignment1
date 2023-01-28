@@ -29,8 +29,18 @@ def set_CMV():
 # If the logical connection dictated by the LCM element gives the value “true”, the corresponding PUM element is set to true.
 def set_PUM(CMV, LCM):
 	PUM = np.full(shape=(d.DIMENSION, d.DIMENSION), fill_value=False)
-
+	for i in range(d.DIMENSION):
+		for j in range(d.DIMENSION):
+			PUM[i, j] = set_PUM_element(CMV, LCM, i, j)
 	return PUM
+
+def set_PUM_element(CMV, LCM, i, j):
+	if LCM[i, j] == "NOTUSED":
+		return True
+	elif LCM[i, j] == "ANDD":
+		return CMV[i] and CMV[j]
+	else:
+		return CMV[i] or CMV[j]
 
 
 # FUV is a boolean vector which is the basis for deciding whether to launch
