@@ -9,10 +9,10 @@ def cond_0(points, length):
 			return True
 	return False
 
-def cond_1():
-	for i in range(numpoints - 2):
+def cond_1(points, radius):
+	for i in range(len(points) - 2):
 		p1, p2, p3 = points[i], points[i+1], points[i+2]
-		if not circ_can_contain(params.radius1, p1, p2, p3):
+		if not circ_can_contain(radius, p1, p2, p3):
 			return True
 	return False
 
