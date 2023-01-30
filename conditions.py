@@ -126,7 +126,12 @@ def cond_10():
 	return False
 
 def cond_11():
-	return True
+	if numpoints < 3:
+		return False
+	for i in range(numpoints - params.q_pts -1):
+		if (points[i][0] - points[i + params.q_pts + 1][0]) < 0:
+			return True
+	return False
 
 def cond_12():
 	return True
