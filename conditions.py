@@ -90,7 +90,13 @@ def cond_6():
 
 
 def cond_7():
-	return True
+	if numpoints < 3:
+		return False
+	for i in range(numpoints - params.k_pts):
+		p1, p2 = points[i], points[i+params.k_pts]
+		if dist(p1, p2) > params.length1:
+			return True
+	return False
 
 def cond_8():
 	return True
