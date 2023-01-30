@@ -13,9 +13,9 @@ params = d.PARAMETERS
 
 
 # Conditions to check
-def cond_0():
-	for i in range(numpoints - 1):
-		if dist(points[i], points[i+1]) > params.length1:
+def cond_0(points, parameters):
+	for i in range(len(points) - 1):
+		if dist(points[i], points[i+1]) > parameters.length1:
 			return True
 	return False
 
