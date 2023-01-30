@@ -44,7 +44,16 @@ def cond_3():
 	return False
 
 def cond_4():
-	return True
+	for i in range(numpoints - params.q_pts):
+		cond = True
+		quadrant0 = quadrant(points[i])
+		for j in range(1, params.q_pts):
+				if quadrant(points[i+j]) != quadrant0:
+					cond = False
+					break
+		if cond == True :
+			return True
+	return False
 
 def cond_5():
 	for i in range(numpoints - 1):
@@ -124,3 +133,18 @@ def area(p1, p2, p3):
 # Calculates the distance between a 2d point p and a line of the form y=m*x + b
 def dist_point_line(p, m, b):
 	return np.abs( (m*p[0] - p[1] + b) / np.sqrt(m*m + 1) )
+
+# Return the quadrant of a point 
+def quadrant(p):
+	x, y = p[0], p[1]
+	if y >=0 :
+		if x >=0 :
+			return 1
+		else:
+			return 2
+	else :
+		if x <=0 :
+			return 3
+		else:
+			return 4
+
