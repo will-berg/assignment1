@@ -65,7 +65,7 @@ def cond_5():
 def cond_6():
 	if numpoints < 3:
 		return False
-	
+
 	for i in range(0, numpoints - params.n_pts):
 		firstPoint = points[i]
 		lastPoint = points[i + params.n_pts]
@@ -84,7 +84,7 @@ def cond_6():
 				distance = dist(points[j], points[i])
 			else:
 				distance = dist_point_line(points[j], m, b)
-			if dist<distance: 
+			if dist<distance:
 				return True
 	return False
 
@@ -151,7 +151,16 @@ def cond_13():
 	return True
 
 def cond_14():
-	return True
+	cond_1, cond_2 = False, False
+	if numpoints < 5:
+		return False
+	for i in range(numpoints - params.e_pts - params.f_pts):
+		p1, p2, p3 = points[i], points[i+params.e_pts], points[i+params.e_pts+params.f_pts]
+		if area(p1, p2, p3) > params.area1:
+			cond_1 = True
+		if area(p1, p2, p3) < params.area2:
+			cond_2 = True
+	return cond_1 and cond_2
 
 
 # Helper functions
@@ -180,7 +189,7 @@ def circ_can_contain(r, p1, p2, p3):
 def dist_point_line(p, m, b):
 	return np.abs( (m*p[0] - p[1] + b) / np.sqrt(m*m + 1) )
 
-# Return the quadrant of a point 
+# Return the quadrant of a point
 def quadrant(p):
 	x, y = p[0], p[1]
 	if y >=0 :
