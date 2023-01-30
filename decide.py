@@ -29,7 +29,7 @@ def set_CMV():
 	CMV[4] = c.cond_4(d.POINTS, d.PARAMETERS.q_pts, d.PARAMETERS.quads)
 	CMV[5] = c.cond_5(d.POINTS)
 	CMV[6] = c.cond_6(d.POINTS, d.PARAMETERS)
-	CMV[7] = c.cond_7(d.POINTS, d.PARAMETERS)
+	CMV[7] = c.cond_7(d.POINTS, d.PARAMETERS.k_pts, d.PARAMETERS.length1)
 	CMV[8] = c.cond_8(d.POINTS, d.PARAMETERS)
 	CMV[9] = c.cond_9(d.POINTS, d.PARAMETERS)
 	CMV[10] = c.cond_10(d.POINTS, d.PARAMETERS)
