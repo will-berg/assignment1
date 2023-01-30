@@ -31,27 +31,35 @@ class testDecide(unittest.TestCase):
 
         self.assertFalse(c.cond_0(points, length))
 
-    def test_lic1(self):
+    def test_lic1_outside(self):
         """There exists at least one set of three consecutive data points that cannot all be contained within or on a circle of radius RADIUS1."""
-        # Positive instance
         points = self.reset_points()
+        radius = 1
+
         points[50] = (2*d.PARAMETERS.radius1,2*d.PARAMETERS.radius1)
         points[51] = (4*d.PARAMETERS.radius1,4*d.PARAMETERS.radius1)
         points[52] = (6*d.PARAMETERS.radius1,6*d.PARAMETERS.radius1)
-        self.assertTrue(c.cond_1())
+        self.assertTrue(c.cond_1(points, radius))
         
-        # Negative instance
-        #Within radius
+    def test_lic1_inside(self):
+        points = self.reset_points()
+        radius = 1
+
+        # Within radius
         points[50] = (1,1)
         points[51] = (1,1)
         points[52] = (1,1)
-        self.assertFalse(c.cond_1())
+        self.assertFalse(c.cond_1(points, radius))
         
-        #On radius
+    def test_lic1_on(self):
+        points = np.zeros(shape=(100, 2))
+        radius = 1
+
+        # On the circle
         points[50] = (d.PARAMETERS.radius1, 0)
         points[51] = (0,d.PARAMETERS.radius1)
         points[52] = (0,-d.PARAMETERS.radius1)
-        self.assertFalse(c.cond_1())
+        self.assertFalse(c.cond_1(points, radius))
 
     """ Tests for LIC3 : There exists at least one set of three consecutive data points that are the vertices of a triangle
 with area greater than AREA1. AREA1 is fixed to 2."""
@@ -99,6 +107,7 @@ with area greater than AREA1. AREA1 is fixed to 2."""
         points[51]=(0,2)
         self.assertFalse(c.cond_3(points, 2))
 
+
     def test_lic5_all_points_equal(self):
         points = np.zeros(shape=(100, 2))
         self.assertFalse(c.cond_5(points))
@@ -106,6 +115,36 @@ with area greater than AREA1. AREA1 is fixed to 2."""
     def test_lic5_two_points_last_larger(self):
         points = [[0, 0], [1, 0]]
         self.assertTrue(c.cond_5(points))
+        
+        
+    """ Tests for LIC4 : There exists at least one set of Q PTS consecutive data points that lie in more than QUADS quadrants."""
+    def test_lic3_1_quadrant(self): # all points are in the same quadrant (I)
+        points = self.reset_points()      
+        self.assertTrue(c.cond_4(points, 10, 1))
+        self.assertFalse(c.cond_4(points, 10, 2))
+        self.assertFalse(c.cond_4(points, 10, 3))
+    
+    def test_lic3_2_quadrant(self): # points are in two different quadrants
+        points = self.reset_points() # quadrant I
+        points[50]=(-1,1) #quadrant II
+        self.assertTrue(c.cond_4(points, 10, 1))
+        self.assertTrue(c.cond_4(points, 10, 2))
+        self.assertFalse(c.cond_4(points, 10, 3))
+
+    def test_lic3_3_quadrant(self): # points are in three different quadrants
+        points = self.reset_points() # quadrant I
+        points[50]=(-1,1) #quadrant II
+        points[51]=(-1,-1) #quadrant III
+        self.assertTrue(c.cond_4(points, 10, 1))
+        self.assertTrue(c.cond_4(points, 10, 2))
+        self.assertTrue(c.cond_4(points, 10, 3))
+
+        #Points in 3 different quadrants but not in the same consecutive group
+        points[51]=(1,1) #quadrant I
+        points[60]=(-1,-1) #quadrant III
+        self.assertFalse(c.cond_4(points, 10, 3))
+
+
 
 if __name__ == '__main__':
     unittest.main()
