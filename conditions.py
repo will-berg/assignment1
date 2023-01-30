@@ -44,7 +44,16 @@ def cond_3():
 	return False
 
 def cond_4():
-	return True
+	for i in range(numpoints - params.q_pts):
+		cond = True
+		quadrant0 = quadrant(points[i])
+		for j in range(1, params.q_pts):
+				if quadrant(points[i+j]) != quadrant0:
+					cond = False
+					break
+		if cond == True :
+			return True
+	return False
 
 def cond_5():
 	for i in range(numpoints - 1):
@@ -54,10 +63,40 @@ def cond_5():
 	return False
 
 def cond_6():
-	return True
+	if numpoints < 3:
+		return False
+	
+	for i in range(0, numpoints - params.n_pts):
+		firstPoint = points[i]
+		lastPoint = points[i + params.n_pts]
+		# 2 cases
+		compareToPoint = False
+		# If first and last point concide, compare dist with these points
+		if firstPoint == lastPoint:
+			compareToPoint = True
+		else:
+			# equation line of the form y = m*x + b
+			m = (lastPoint[1] - firstPoint[1]) / (lastPoint[0] - firstPoint[i][0])
+			b = firstPoint[1] - m*firstPoint[0]
+
+		for j in range(i+1, i + params.n_pts - 1):
+			if compareToPoint:
+				distance = dist(points[j], points[i])
+			else:
+				distance = dist_point_line(points[j], m, b)
+			if dist<distance: 
+				return True
+	return False
+
 
 def cond_7():
-	return True
+	if numpoints < 3:
+		return False
+	for i in range(numpoints - params.k_pts):
+		p1, p2 = points[i], points[i+params.k_pts]
+		if dist(p1, p2) > params.length1:
+			return True
+	return False
 
 def cond_8():
 	if numpoints < 5:
@@ -121,8 +160,21 @@ def circ_can_contain(r, p1, p2, p3):
 		return False
 	return True
 
+# Calculates the distance between a 2d point p and a line of the form y=m*x + b
+def dist_point_line(p, m, b):
+	return np.abs( (m*p[0] - p[1] + b) / np.sqrt(m*m + 1) )
 
-
-
-
+# Return the quadrant of a point 
+def quadrant(p):
+	x, y = p[0], p[1]
+	if y >=0 :
+		if x >=0 :
+			return 1
+		else:
+			return 2
+	else :
+		if x <=0 :
+			return 3
+		else:
+			return 4
 
