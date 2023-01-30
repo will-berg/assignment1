@@ -3,9 +3,9 @@ import numpy as np
 
 
 # Conditions to check
-def cond_0(points, parameters):
+def cond_0(points, length):
 	for i in range(len(points) - 1):
-		if dist(points[i], points[i+1]) > parameters.length1:
+		if dist(points[i], points[i+1]) > length:
 			return True
 	return False
 

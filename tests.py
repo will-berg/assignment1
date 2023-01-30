@@ -16,13 +16,19 @@ class testDecide(unittest.TestCase):
     def test_lic0_greater(self):
         """There exists at least one set of two consecutive data points that are a distance greater than the length, LENGTH1, apart."""
         points = self.reset_points()
+        length = 1
+
         points[50] = (4,4)
-        self.assertTrue(c.cond_0(points, d.PARAMETERS))
+
+        self.assertTrue(c.cond_0(points, length))
 
     def test_lic0_less(self):
         points = self.reset_points()
+        length = 1
+
         points[50] = (1,1)
-        self.assertFalse(c.cond_0(points, d.PARAMETERS))
+
+        self.assertFalse(c.cond_0(points, length))
 
     def test_lic1(self):
         """There exists at least one set of three consecutive data points that cannot all be contained within or on a circle of radius RADIUS1."""
