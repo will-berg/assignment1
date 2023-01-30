@@ -33,15 +33,18 @@ def cond_3(points, area1):
 			return True
 	return False
 
-def cond_4():
-	for i in range(numpoints - params.q_pts):
-		cond = True
-		quadrant0 = quadrant(points[i])
-		for j in range(1, params.q_pts):
-				if quadrant(points[i+j]) != quadrant0:
-					cond = False
-					break
-		if cond == True :
+def cond_4(points, q_pts, quad):
+	for i in range(len(points) - q_pts):
+		quadrant_used =[0, 0, 0, 0]
+		sum = 0
+		cond = False
+		sum = 0
+		for j in range(0, q_pts):
+			quadj = quadrant(points[i+j])
+			if quadrant_used[quadj] == 0:
+				quadrant_used[quadj] = 1
+				sum +=1
+		if sum >= quad :
 			return True
 	return False
 

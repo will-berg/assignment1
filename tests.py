@@ -98,5 +98,33 @@ with area greater than AREA1. AREA1 is fixed to 2."""
         points[51]=(0,2)
         self.assertFalse(c.cond_3(points, 2))
 
+    """ Tests for LIC4 : There exists at least one set of Q PTS consecutive data points that lie in more than QUADS quadrants."""
+    def test_lic3_1_quadrant(self): # all points are in the same quadrant (I)
+        points = self.reset_points()      
+        self.assertTrue(c.cond_4(points, 10, 1))
+        self.assertFalse(c.cond_4(points, 10, 2))
+        self.assertFalse(c.cond_4(points, 10, 3))
+    
+    def test_lic3_2_quadrant(self): # points are in two different quadrants
+        points = self.reset_points() # quadrant I
+        points[50]=(-1,1) #quadrant II
+        self.assertTrue(c.cond_4(points, 10, 1))
+        self.assertTrue(c.cond_4(points, 10, 2))
+        self.assertFalse(c.cond_4(points, 10, 3))
+
+    def test_lic3_3_quadrant(self): # points are in three different quadrants
+        points = self.reset_points() # quadrant I
+        points[50]=(-1,1) #quadrant II
+        points[51]=(-1,-1) #quadrant III
+        self.assertTrue(c.cond_4(points, 10, 1))
+        self.assertTrue(c.cond_4(points, 10, 2))
+        self.assertTrue(c.cond_4(points, 10, 3))
+
+        #Points in 3 different quadrants but not in the same consecutive group
+        points[51]=(1,1) #quadrant I
+        points[60]=(-1,-1) #quadrant III
+        self.assertFalse(c.cond_4(points, 10, 3))
+
+
 if __name__ == '__main__':
     unittest.main()
