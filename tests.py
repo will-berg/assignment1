@@ -199,5 +199,24 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         points[55] = (3,1)
         self.assertFalse(c.cond_7(points, 3, 2))
 
+    """ Tests for LIC10 : There exists at least one set of three data points separated by exactly E PTS and F PTS con-
+secutive intervening points, respectively, that are the vertices of a triangle with area greater
+than AREA1"""
+    def test_lic10(self):
+        points = self.reset_points()
+        # All points are in the same position
+        self.assertFalse(c.cond_10(points, 2, 3, 2))
+
+        # Creation of a triabgle of points that matches the conditions
+        points[50]=(0,0)
+        points[53]=(3,0)
+        points[57]=(0,2)
+        self.assertTrue(c.cond_10(points, 2, 3, 2))
+
+        # Creation of a triabgle of points that matches the condition for the area but not the right amount of points in between
+        points[53]=(1,1)
+        points[54]=(3,0)
+        self.assertFalse(c.cond_10(points, 2, 3, 2))
+
 if __name__ == '__main__':
     unittest.main()
