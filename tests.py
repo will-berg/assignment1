@@ -157,8 +157,22 @@ with area greater than AREA1. AREA1 is fixed to 2."""
 
         self.assertTrue(c.cond_6(points, n, dist))
 
+    def test_lic6_larger_distance_coincident_endpoints(self):
+        points = [[0, 0], [2, 0], [0, 0]]
+        n = 3
+        dist = 1
+
+        self.assertTrue(c.cond_6(points, n, dist))
+
     def test_lic6_smaller_distance(self):
         points = [[0, 0], [1, 1], [2, 0]]
+        n = 3
+        dist = 2
+
+        self.assertFalse(c.cond_6(points, n, dist))
+
+    def test_lic6_smaller_distance_coincident_endpoints(self):
+        points = [[0,0], [1,0], [0,0]]
         n = 3
         dist = 2
 

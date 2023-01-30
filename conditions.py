@@ -55,7 +55,7 @@ def cond_5(points):
 			return True
 	return False
 
-def cond_6(points, n, dist):
+def cond_6(points, n, distance):
 	if len(points) < 3:
 		return False
 
@@ -74,10 +74,10 @@ def cond_6(points, n, dist):
 
 		for j in range(i + 1, i + n - 1):
 			if compareToPoint:
-				distance = dist(points[j], points[i])
+				d = dist(points[j], firstPoint)
 			else:
-				distance = dist_point_line(points[j], m, b)
-			if dist < distance:
+				d = dist_point_line(points[j], m, b)
+			if distance < d:
 				return True
 	return False
 
