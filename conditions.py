@@ -44,7 +44,16 @@ def cond_3():
 	return False
 
 def cond_4():
-	return True
+	for i in range(numpoints - params.q_pts):
+		cond = True
+		quadrant0 = quadrant(points[i])
+		for j in range(1, params.q_pts):
+				if quadrant(points[i+j]) != quadrant0:
+					cond = False
+					break
+		if cond == True :
+			return True
+	return False
 
 def cond_5():
 	for i in range(numpoints - 1):
@@ -97,3 +106,17 @@ def area(p1, p2, p3):
 	x1, y1, x2, y2, x3, y3 = p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]
 	return 0.5 * np.abs(x1 * y2 - x3 * y2  + x3 * y1 - x1 * y3 + x2 * y3 - x2 * y1)
 
+# Return the quadrant of a point 
+
+def quadrant(p):
+	x, y = p[0], p[1]
+	if y >=0 :
+		if x >=0 :
+			return 1
+		else:
+			return 2
+	else :
+		if x <=0 :
+			return 3
+		else:
+			return 4
