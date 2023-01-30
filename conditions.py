@@ -134,7 +134,18 @@ def cond_11():
 	return False
 
 def cond_12():
-	return True
+	if numpoints < 3:
+		return False
+	cond1 = False
+	cond2 = False
+	for i in range(numpoints - params.k_pts -1):
+		if dist(points[i], points[i + params.k_pts + 1]) > params.length1:
+			cond1 = True
+		if dist(points[i], points[i + params.k_pts + 1]) < params.length2:
+			cond2 = True
+		if cond1&cond2:
+			return True
+	return False
 
 def cond_13():
 	return True
