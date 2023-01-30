@@ -107,6 +107,16 @@ with area greater than AREA1. AREA1 is fixed to 2."""
         points[51]=(0,2)
         self.assertFalse(c.cond_3(points, 2))
 
+
+    def test_lic5_all_points_equal(self):
+        points = np.zeros(shape=(100, 2))
+        self.assertFalse(c.cond_5(points))
+
+    def test_lic5_two_points_last_larger(self):
+        points = [[0, 0], [1, 0]]
+        self.assertTrue(c.cond_5(points))
+        
+        
     """ Tests for LIC4 : There exists at least one set of Q PTS consecutive data points that lie in more than QUADS quadrants."""
     def test_lic3_1_quadrant(self): # all points are in the same quadrant (I)
         points = self.reset_points()      
@@ -133,6 +143,7 @@ with area greater than AREA1. AREA1 is fixed to 2."""
         points[51]=(1,1) #quadrant I
         points[60]=(-1,-1) #quadrant III
         self.assertFalse(c.cond_4(points, 10, 3))
+
 
 
 if __name__ == '__main__':
