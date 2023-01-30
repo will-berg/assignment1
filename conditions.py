@@ -26,10 +26,10 @@ def cond_2():
 			return True
 	return False
 
-def cond_3():
-	for i in range(numpoints - 2):
+def cond_3(points, area1):
+	for i in range(len(points) - 2):
 		p1, p2, p3 = points[i], points[i+1], points[i+2]
-		if area(p1, p2, p3) > params.area1:
+		if area(p1, p2, p3) > area1:
 			return True
 	return False
 
