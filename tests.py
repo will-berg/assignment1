@@ -1,4 +1,5 @@
 import unittest
+import numpy as np
 
 import decide
 import conditions as c
@@ -97,6 +98,14 @@ with area greater than AREA1. AREA1 is fixed to 2."""
         points[51]=(2,0)
         points[51]=(0,2)
         self.assertFalse(c.cond_3(points, 2))
+
+    def test_lic5_all_points_equal(self):
+        points = np.zeros(shape=(100, 2))
+        self.assertFalse(c.cond_5(points))
+
+    def test_lic5_two_points_last_larger(self):
+        points = [[0, 0], [1, 0]]
+        self.assertTrue(c.cond_5(points))
 
 if __name__ == '__main__':
     unittest.main()
