@@ -1,4 +1,5 @@
 import declarations as d
+import conditions as c
 import numpy as np
 
 
@@ -21,7 +22,21 @@ def decide():
 # If the radar tracking data satisfy a certain LIC, then the corresponding element of the CMV is set to true.
 def set_CMV():
 	CMV = np.full(shape=d.DIMENSION, fill_value=False)
-
+	CMV[0] = c.cond_0(d.POINTS, d.PARAMETERS.length1)
+	CMV[1] = c.cond_1(d.POINTS, d.PARAMETERS)
+	CMV[2] = c.cond_2(d.POINTS, d.PARAMETERS.radius1)
+	CMV[3] = c.cond_3(d.POINTS, d.PARAMETERS.area1)
+	CMV[4] = c.cond_4(d.POINTS, d.PARAMETERS.q_pts, d.PARAMETERS.quads)
+	CMV[5] = c.cond_5(d.POINTS)
+	CMV[6] = c.cond_6(d.POINTS, d.PARAMETERS.n_pts, d.PARAMETERS.dist)
+	CMV[7] = c.cond_7(d.POINTS, d.PARAMETERS.k_pts, d.PARAMETERS.length1)
+	CMV[8] = c.cond_8(d.POINTS, d.PARAMETERS)
+	CMV[9] = c.cond_9(d.POINTS, d.PARAMETERS)
+	CMV[10] = c.cond_10(d.POINTS, d.PARAMETERS.e_pts, d.PARAMETERS.f_pts, d.PARAMETERS.area1)
+	CMV[11] = c.cond_11(d.POINTS, d.PARAMETERS)
+	CMV[12] = c.cond_12(d.POINTS, d.PARAMETERS)
+	CMV[13] = c.cond_13(d.POINTS, d.PARAMETERS)
+	CMV[14] = c.cond_14(d.POINTS, d.PARAMETERS)
 	return CMV
 
 

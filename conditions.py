@@ -1,28 +1,18 @@
 import declarations as d
 import numpy as np
 
-# Globals
-x = d.X
-y = d.Y
-numpoints = d.NUMPOINTS
-points = []
-for i in range(numpoints):
-	points.append((x[i], y[i]))
-
-params = d.PARAMETERS
-
 
 # Conditions to check
-def cond_0(points, parameters):
+def cond_0(points, length):
 	for i in range(len(points) - 1):
-		if dist(points[i], points[i+1]) > parameters.length1:
+		if dist(points[i], points[i+1]) > length:
 			return True
 	return False
 
-def cond_1():
-	for i in range(numpoints - 2):
+def cond_1(points, radius):
+	for i in range(len(points) - 2):
 		p1, p2, p3 = points[i], points[i+1], points[i+2]
-		if not circ_can_contain(params.radius1, p1, p2, p3):
+		if not circ_can_contain(radius, p1, p2, p3):
 			return True
 	return False
 
@@ -35,39 +25,42 @@ def cond_2(points, parameters):
 				return True
 	return False
 
-def cond_3():
-	for i in range(numpoints - 2):
+def cond_3(points, area1):
+	for i in range(len(points) - 2):
 		p1, p2, p3 = points[i], points[i+1], points[i+2]
-		if area(p1, p2, p3) > params.area1:
+		if area(p1, p2, p3) > area1:
 			return True
 	return False
 
-def cond_4():
-	for i in range(numpoints - params.q_pts):
-		cond = True
-		quadrant0 = quadrant(points[i])
-		for j in range(1, params.q_pts):
-				if quadrant(points[i+j]) != quadrant0:
-					cond = False
-					break
-		if cond == True :
+def cond_4(points, q_pts, quad):
+	for i in range(len(points) - q_pts):
+		quadrant_used =[0, 0, 0, 0]
+		sum = 0
+		cond = False
+		sum = 0
+		for j in range(0, q_pts):
+			quadj = quadrant(points[i+j])
+			if quadrant_used[quadj] == 0:
+				quadrant_used[quadj] = 1
+				sum +=1
+		if sum >= quad :
 			return True
 	return False
 
-def cond_5():
-	for i in range(numpoints - 1):
-		xi, xj = x[i], x[i+1]
+def cond_5(points):
+	for i in range(len(points) - 1):
+		xi, xj = points[i][0], points[i+1][0]
 		if xi - xj < 0:
 			return True
 	return False
 
-def cond_6():
-	if numpoints < 3:
+def cond_6(points, n, distance):
+	if len(points) < 3:
 		return False
 
-	for i in range(0, numpoints - params.n_pts):
+	for i in range(0, len(points) - n + 1):
 		firstPoint = points[i]
-		lastPoint = points[i + params.n_pts]
+		lastPoint = points[i + n - 1]
 		# 2 cases
 		compareToPoint = False
 		# If first and last point concide, compare dist with these points
@@ -75,25 +68,24 @@ def cond_6():
 			compareToPoint = True
 		else:
 			# equation line of the form y = m*x + b
-			m = (lastPoint[1] - firstPoint[1]) / (lastPoint[0] - firstPoint[i][0])
+			m = (lastPoint[1] - firstPoint[1]) / (lastPoint[0] - firstPoint[0])
 			b = firstPoint[1] - m*firstPoint[0]
 
-		for j in range(i+1, i + params.n_pts - 1):
+		for j in range(i + 1, i + n - 1):
 			if compareToPoint:
-				distance = dist(points[j], points[i])
+				d = dist(points[j], firstPoint)
 			else:
-				distance = dist_point_line(points[j], m, b)
-			if dist<distance:
+				d = dist_point_line(points[j], m, b)
+			if distance < d:
 				return True
 	return False
 
-
-def cond_7():
-	if numpoints < 3:
+def cond_7(points, k_pts, length1):
+	if len(points) < 3:
 		return False
-	for i in range(numpoints - params.k_pts):
-		p1, p2 = points[i], points[i+params.k_pts]
-		if dist(p1, p2) > params.length1:
+	for i in range(len(points) - k_pts - 1):
+		p1, p2 = points[i], points[i + k_pts + 1]
+		if dist(p1, p2) > length1:
 			return True
 	return False
 
@@ -115,12 +107,12 @@ def cond_9():
 			return True
 	return False
 
-def cond_10():
-	if numpoints < 5:
+def cond_10(points, e_pts, f_pts, area1):
+	if len(points) < 5:
 		return False
-	for i in range(numpoints - params.e_pts - params.f_pts):
-		p1, p2, p3 = points[i], points[i+params.e_pts], points[i+params.e_pts+params.f_pts]
-		if area(p1, p2, p3) > params.area1:
+	for i in range(len(points) - e_pts - f_pts - 2):
+		p1, p2, p3 = points[i], points[i + e_pts + 1], points[i + e_pts + f_pts + 2]
+		if area(p1, p2, p3) > area1:
 			return True
 	return False
 

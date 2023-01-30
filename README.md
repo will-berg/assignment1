@@ -9,3 +9,7 @@ To install the required dependencies, run `pip install -r requirements.txt`.
 ## RUN
 
 To run the program, execute `python decide.py`.
+
+## TEST
+
+Testing is important! To run the tests, execute `python -m unittest tests.py`.
