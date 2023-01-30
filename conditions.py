@@ -22,7 +22,7 @@ def cond_0():
 def cond_1():
 	for i in range(numpoints - 2):
 		p1, p2, p3 = points[i], points[i+1], points[i+2]
-		if dist(p1, p2) > 2 * params.radius1 or dist(p1, p3) > 2 * params.radius1 or dist(p2, p3) > 2 * params.radius1:
+		if not circ_can_contain(params.radius1, p1, p2, p3):
 			return True
 	return False
 
@@ -60,7 +60,13 @@ def cond_7():
 	return True
 
 def cond_8():
-	return True
+	if numpoints < 5:
+		return False
+	for i in range(numpoints - params.a_pts - params.b_pts):
+		p1, p2, p3 = points[i], points[i+params.a_pts], points[i+params.a_pts+params.b_pts]
+		if not circ_can_contain(params.radius1, p1, p2, p3):
+			return True
+	return False
 
 def cond_9():
 	return True
@@ -96,4 +102,15 @@ def angle(p1, p2, p3):
 def area(p1, p2, p3):
 	x1, y1, x2, y2, x3, y3 = p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]
 	return 0.5 * np.abs(x1 * y2 - x3 * y2  + x3 * y1 - x1 * y3 + x2 * y3 - x2 * y1)
+
+# Determines if the circle with radius r can contain the points p1-p3
+def circ_can_contain(r, p1, p2, p3):
+	if dist(p1, p2) > 2 * r or dist(p1, p3) > 2 * r or dist(p2, p3) > 2 * r:
+		return False
+	return True
+
+
+
+
+
 
