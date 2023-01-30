@@ -63,7 +63,31 @@ def cond_5():
 	return False
 
 def cond_6():
-	return True
+	if numpoints < 3:
+		return False
+	
+	for i in range(0, numpoints - params.n_pts):
+		firstPoint = points[i]
+		lastPoint = points[i + params.n_pts]
+		# 2 cases
+		compareToPoint = False
+		# If first and last point concide, compare dist with these points
+		if firstPoint == lastPoint:
+			compareToPoint = True
+		else:
+			# equation line of the form y = m*x + b
+			m = (lastPoint[1] - firstPoint[1]) / (lastPoint[0] - firstPoint[i][0])
+			b = firstPoint[1] - m*firstPoint[0]
+
+		for j in range(i+1, i + params.n_pts - 1):
+			if compareToPoint:
+				distance = dist(points[j], points[i])
+			else:
+				distance = dist_point_line(points[j], m, b)
+			if dist<distance: 
+				return True
+	return False
+
 
 def cond_7():
 	return True
@@ -106,8 +130,11 @@ def area(p1, p2, p3):
 	x1, y1, x2, y2, x3, y3 = p1[0], p1[1], p2[0], p2[1], p3[0], p3[1]
 	return 0.5 * np.abs(x1 * y2 - x3 * y2  + x3 * y1 - x1 * y3 + x2 * y3 - x2 * y1)
 
-# Return the quadrant of a point 
+# Calculates the distance between a 2d point p and a line of the form y=m*x + b
+def dist_point_line(p, m, b):
+	return np.abs( (m*p[0] - p[1] + b) / np.sqrt(m*m + 1) )
 
+# Return the quadrant of a point 
 def quadrant(p):
 	x, y = p[0], p[1]
 	if y >=0 :
@@ -120,3 +147,4 @@ def quadrant(p):
 			return 3
 		else:
 			return 4
+
