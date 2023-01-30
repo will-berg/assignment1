@@ -56,6 +56,10 @@ NUMPOINTS = 100
 X = np.ones(shape=(NUMPOINTS))
 Y = np.ones(shape=(NUMPOINTS))
 
+POINTS = []
+for i in range(NUMPOINTS):
+	POINTS.append((X[i], Y[i]))
+
 DIMENSION = 15
 LCM = np.full(shape=(DIMENSION, DIMENSION), fill_value=1)
 PUV = np.full(shape=DIMENSION, fill_value=True)

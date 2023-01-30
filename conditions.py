@@ -1,16 +1,6 @@
 import declarations as d
 import numpy as np
 
-# Globals
-x = d.X
-y = d.Y
-numpoints = d.NUMPOINTS
-points = []
-for i in range(numpoints):
-	points.append((x[i], y[i]))
-
-params = d.PARAMETERS
-
 
 # Conditions to check
 def cond_0(points, parameters):
