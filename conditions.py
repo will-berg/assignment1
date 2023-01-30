@@ -26,14 +26,13 @@ def cond_1():
 			return True
 	return False
 
-def cond_2():
+def cond_2(points, parameters):
 	for i in range(numpoints - 2):
 		p1, p2, p3 = points[i], points[i+1], points[i+2]
-		if p2 == p1 or p2 == p3:
-			return False
 		theta = angle(p1, p2, p3)
-		if theta < d.PI - params.epsilon or theta > d.PI + params.epsilon:
-			return True
+		if theta < (np.pi - parameters.epsilon) or theta > (np.pi + parameters.epsilon):
+			if not(p2 == p1 or p2 == p3):
+				return True
 	return False
 
 def cond_3():
@@ -172,7 +171,7 @@ def dist(p1, p2):
 # Calculates the angle formed by the three points p1, p2 (vertex), and p3
 # https://stackoverflow.com/questions/1211212/how-to-calculate-an-angle-from-three-points
 def angle(p1, p2, p3):
-	return np.arctan2(p3[1] - p1[1], p3[0] - p1[0]) - np.arctan2(p2[1] - p1[1], p2[0] - p1[0])
+	return (np.arctan2(p2[1] - p1[1], p2[0] - p1[0]) - np.arctan2(p3[1] - p2[1], p3[0] - p2[0]) )% np.pi 
 
 # Calculates the area of a triangle given three points (shoelace formula)
 def area(p1, p2, p3):
