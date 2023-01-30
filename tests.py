@@ -144,9 +144,28 @@ with area greater than AREA1. AREA1 is fixed to 2."""
         points[60]=(-1,-1) #quadrant III
         self.assertFalse(c.cond_4(points, 10, 3))
 
+    def test_lic6_less_than_three_points(self):
+        points = [[0,0]]
+        n = 1
+        dist = 1
+        self.assertFalse(c.cond_6(points, n, dist))
+
+    def test_lic6_larger_distance(self):
+        points = [[0, 0], [1, 2], [2, 0]]
+        n = 3
+        dist = 1
+
+        self.assertTrue(c.cond_6(points, n, dist))
+
+    def test_lic6_smaller_distance(self):
+        points = [[0, 0], [1, 1], [2, 0]]
+        n = 3
+        dist = 2
+
+        self.assertFalse(c.cond_6(points, n, dist))
+
     """Tests for LIC7 : There exists at least one set of two data points separated by exactly K PTS consecutive in-
 tervening points that are a distance greater than the length, LENGTH1, apart."""
-
     def test_lic7(self): 
         points = self.reset_points() #All points are in the same position 
         self.assertFalse(c.cond_7(points, 3, 2))
@@ -165,9 +184,6 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         points[54] = (1,1)
         points[55] = (3,1)
         self.assertFalse(c.cond_7(points, 3, 2))
-
-
-
 
 if __name__ == '__main__':
     unittest.main()

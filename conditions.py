@@ -55,13 +55,13 @@ def cond_5(points):
 			return True
 	return False
 
-def cond_6():
-	if numpoints < 3:
+def cond_6(points, n, dist):
+	if len(points) < 3:
 		return False
 
-	for i in range(0, numpoints - params.n_pts):
+	for i in range(0, len(points) - n + 1):
 		firstPoint = points[i]
-		lastPoint = points[i + params.n_pts]
+		lastPoint = points[i + n - 1]
 		# 2 cases
 		compareToPoint = False
 		# If first and last point concide, compare dist with these points
@@ -69,18 +69,17 @@ def cond_6():
 			compareToPoint = True
 		else:
 			# equation line of the form y = m*x + b
-			m = (lastPoint[1] - firstPoint[1]) / (lastPoint[0] - firstPoint[i][0])
+			m = (lastPoint[1] - firstPoint[1]) / (lastPoint[0] - firstPoint[0])
 			b = firstPoint[1] - m*firstPoint[0]
 
-		for j in range(i+1, i + params.n_pts - 1):
+		for j in range(i + 1, i + n - 1):
 			if compareToPoint:
 				distance = dist(points[j], points[i])
 			else:
 				distance = dist_point_line(points[j], m, b)
-			if dist<distance:
+			if dist < distance:
 				return True
 	return False
-
 
 def cond_7(points, k_pts, length1):
 	if len(points) < 3:
