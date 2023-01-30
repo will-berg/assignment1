@@ -69,10 +69,22 @@ def cond_8():
 	return False
 
 def cond_9():
-	return True
+	if numpoints < 5:
+		return False
+	for i in range(numpoints - params.c_pts - params.d_pts):
+		p1, p2, p3 = points[i], points[i+params.c_pts], points[i+params.c_pts+params.d_pts]
+		if angle(p1, p2, p3) < d.PI - params.epsilon or angle(p1, p2, p3) > d.PI + params.epsilon:
+			return True
+	return False
 
 def cond_10():
-	return True
+	if numpoints < 5:
+		return False
+	for i in range(numpoints - params.e_pts - params.f_pts):
+		p1, p2, p3 = points[i], points[i+params.e_pts], points[i+params.e_pts+params.f_pts]
+		if area(p1, p2, p3) > params.area1:
+			return True
+	return False
 
 def cond_11():
 	return True
