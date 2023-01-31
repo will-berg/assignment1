@@ -251,5 +251,15 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         g_pts = 0
         self.assertFalse(c.cond_11(points, g_pts))
 
+    # LIC 14 is not met if there are less than 5 points.
+    def test_lic14_not_enough_points(self):
+        points = np.zeros(shape=(4, 2))
+        e_pts = 1
+        f_pts = 1
+        area1 = 1
+        area2 = 2
+
+        self.assertFalse(c.cond_14(points, e_pts, f_pts, area1, area2))
+
 if __name__ == '__main__':
     unittest.main()
