@@ -237,6 +237,15 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
 
         self.assertTrue(c.cond_8(points, a_pts, b_pts, radius))
 
+    def test_lic8_points_inside_circle(self):
+        points = np.zeros(shape=(10, 2))
+        a_pts = 2
+        b_pts = 3
+        radius = 1
+
+        # Since all points is at [0, 0], they will all be able to fit inside the same circle.
+        self.assertFalse(c.cond_8(points, a_pts, b_pts, radius))
+
     """ Tests for LIC10 : There exists at least one set of three data points separated by exactly E PTS and F PTS con-
 secutive intervening points, respectively, that are the vertices of a triangle with area greater
 than AREA1"""
