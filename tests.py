@@ -215,6 +215,15 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         points[55] = (3,1)
         self.assertFalse(c.cond_7(points, 3, 2))
 
+    # LIC 8 requires at least five points.
+    def test_lic8_less_than_five_points(self):
+        points = [[0,0], [1,1], [1,2]]
+        a_pts = 1
+        b_pts = 1
+        radius = 1
+
+        self.assertFalse(c.cond_8(points, a_pts, b_pts, radius))
+
     """ Tests for LIC10 : There exists at least one set of three data points separated by exactly E PTS and F PTS con-
 secutive intervening points, respectively, that are the vertices of a triangle with area greater
 than AREA1"""
