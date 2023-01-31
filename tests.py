@@ -51,6 +51,32 @@ class testDecide(unittest.TestCase):
         points[52] = (1,1)
         self.assertFalse(c.cond_1(points, radius))
         
+        #On radius
+        points[50] = (d.PARAMETERS.radius1, 0)
+        points[51] = (0,d.PARAMETERS.radius1)
+        points[52] = (0,-d.PARAMETERS.radius1)
+        self.assertFalse(c.cond_1())
+
+    def test_lic2_angle_smaller(self):
+        points = self.reset_points()
+        points[50] = (0,0)
+        points[51] = (2,0)
+        points[52] = (0,-10)
+        self.assertTrue(c.cond_2(points, d.PARAMETERS))
+
+    def test_lic2_angle_larger(self):
+        points = self.reset_points()
+        points[50] = (0,0)
+        points[51] = (2,0)
+        points[52] = (0,10)
+        print(c.angle(points[50], points[51], points[52]))
+        self.assertTrue(c.cond_2(points, d.PARAMETERS))
+
+    def test_lic2_angle_undefined(self):
+        points = self.reset_points()
+        self.assertFalse(c.cond_2(points, d.PARAMETERS))
+
+    
     def test_lic1_on(self):
         points = np.zeros(shape=(100, 2))
         radius = 1
