@@ -261,5 +261,16 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
 
         self.assertFalse(c.cond_14(points, e_pts, f_pts, area1, area2))
 
+    # LIC 14 is met if the same set of points form an area both larger and smaller than the given areas.
+    def test_lic14_same_points_both_larger_smaller(self):
+        e_pts = 2
+        f_pts = 3
+        area1 = 1
+        area2 = 4
+
+        points = [[0, 0], [0,0], [0,0], [2, 0], [0,0], [0,0], [0,0], [0, 2]]
+
+        self.assertTrue(c.cond_14(points, e_pts, f_pts, area1, area2))
+
 if __name__ == '__main__':
     unittest.main()
