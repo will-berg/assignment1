@@ -145,8 +145,8 @@ def cond_14(points, e_pts, f_pts, area1, area2):
 	cond_1, cond_2 = False, False
 	if len(points) < 5:
 		return False
-	for i in range(len(points) - e_pts - f_pts):
-		p1, p2, p3 = points[i], points[i + e_pts], points[i + e_pts + f_pts]
+	for i in range(len(points) - e_pts - f_pts - 2):
+		p1, p2, p3 = points[i], points[i + e_pts + 1], points[i + e_pts + f_pts + 2]
 		if area(p1, p2, p3) > area1:
 			cond_1 = True
 		if area(p1, p2, p3) < area2:
