@@ -138,15 +138,15 @@ def cond_12():
 			return True
 	return False
 
-def cond_13():
+def cond_13(points, a_pts, b_pts, radius1, radius2):
 	if params.n_pts<5:
 		return False
 	# 3 points, first and second seperated exactly by a, second and third separated exactly by b. So i would arrive to n-a-b-1
 	# example, a=2, b=3, n=10, i would range from 0 to 3
-	for i in range(0, params.n_pts - params.a_pts - params.b_pts - 1):
+	for i in range(0, params.n_pts - a_pts - b_pts - 1):
 		p1 = points[i]
-		p2 = points[i + params.a_pts + 1]
-		p3 = points[i + params.a_pts + params.b_pts + 2]
+		p2 = points[i + a_pts + 1]
+		p3 = points[i + a_pts + b_pts + 2]
 
 
 def cond_14():
