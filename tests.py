@@ -283,5 +283,15 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         # which means that LIC 13 will be met using both sets of points.
         self.assertTrue(c.cond_13(points, a_pts, b_pts, radius1, radius2))
 
+    # LIC 13 is not met if all sets of points is inside both circles.
+    def test_lic13_all_points_inside(self):
+        points = np.zeros(shape=(10,2))
+        radius1 = 2
+        radius2 = 3
+        a_pts = 2
+        b_pts = 3
+
+        self.assertFalse(c.cond_13(points, a_pts, b_pts, radius1, radius2))
+
 if __name__ == '__main__':
     unittest.main()
