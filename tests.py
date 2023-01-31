@@ -224,6 +224,7 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
 
         self.assertFalse(c.cond_8(points, a_pts, b_pts, radius))
 
+    # LIC 8 is met if three points are outside the radius of the circle. 
     def test_lic8_points_outside_circle(self):
         points = np.zeros(shape=(10, 2))
         a_pts = 2
@@ -237,6 +238,7 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
 
         self.assertTrue(c.cond_8(points, a_pts, b_pts, radius))
 
+    # LIC 8 is not met if all sets of three points can be within the circle.
     def test_lic8_points_inside_circle(self):
         points = np.zeros(shape=(10, 2))
         a_pts = 2
