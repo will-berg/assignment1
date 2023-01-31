@@ -244,5 +244,22 @@ than AREA1"""
         points[54]=(3,0)
         self.assertFalse(c.cond_10(points, 2, 3, 2))
 
+    """Tests for LIC11 : There exists at least one set of two data points separated by exactly K PTS consecutive in-
+tervening points that are a distance greater than the length, LENGTH1, apart."""
+    def test_lic11(self): 
+        points = [[3, 0], [1, 0], [1, 0], [2,0]]
+        g_pts = 2
+        self.assertFalse(c.cond_11(points, g_pts))
+
+        points = [[2, 0], [1, 0], [1, 0], [3,0]]
+        self.assertTrue(c.cond_11(points, g_pts))
+
+        points = [[2, 0], [1, 0], [3, 0], [1,0]]
+        self.assertFalse(c.cond_11(points, g_pts))
+
+        points = [[2, 0], [1, 0]]
+        g_pts = 0
+        self.assertFalse(c.cond_11(points, g_pts))
+
 if __name__ == '__main__':
     unittest.main()

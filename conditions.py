@@ -116,11 +116,11 @@ def cond_10(points, e_pts, f_pts, area1):
 			return True
 	return False
 
-def cond_11():
-	if numpoints < 3:
+def cond_11(points, g_pts):
+	if len(points) < 3:
 		return False
-	for i in range(numpoints - params.q_pts -1):
-		if (points[i][0] - points[i + params.q_pts + 1][0]) < 0:
+	for i in range(len(points) - g_pts -1):
+		if (points[i][0] - points[i + g_pts + 1][0]) < 0:
 			return True
 	return False
 
