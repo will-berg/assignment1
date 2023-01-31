@@ -17,7 +17,7 @@ def cond_1(points, radius):
 	return False
 
 def cond_2(points, parameters):
-	for i in range(numpoints - 2):
+	for i in range(len(points) - 2):
 		p1, p2, p3 = points[i], points[i+1], points[i+2]
 		theta = angle(p1, p2, p3)
 		if theta < (np.pi - parameters.epsilon) or theta > (np.pi + parameters.epsilon):
