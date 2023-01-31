@@ -251,5 +251,21 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         g_pts = 0
         self.assertFalse(c.cond_11(points, g_pts))
 
+    # LIC 13 is met if the same set of three points lie both inside and outside of circles with dirrenent radii.
+    def test_lic13_same_points_both_inside_outside(self):
+        radius1 = 1
+        radius2 = 3
+        a_pts = 2
+        b_pts = 3
+
+        middle_radius = 2
+
+        points = [[-middle_radius,0], [0,0], [0,0], [middle_radius, 0], [0,0], [0,0], [0,0], [0, middle_radius]]
+
+        # There is only one set of three points possible to check,
+        # and they all lie outside the first circle and inside the second circle.
+        # This means this condition should be met.
+        self.assertTrue(c.cond_13(points, a_pts, b_pts, radius1, radius2))
+
 if __name__ == '__main__':
     unittest.main()
