@@ -31,8 +31,8 @@ class testDecide(unittest.TestCase):
 
         self.assertFalse(c.cond_0(points, length))
 
+    # LIC 1 is met if three consecutive points cannot be contained inside a circle of the specified radius.
     def test_lic1_outside(self):
-        """There exists at least one set of three consecutive data points that cannot all be contained within or on a circle of radius RADIUS1."""
         points = self.reset_points()
         radius = 1
 
@@ -40,7 +40,8 @@ class testDecide(unittest.TestCase):
         points[51] = (4*d.PARAMETERS.radius1,4*d.PARAMETERS.radius1)
         points[52] = (6*d.PARAMETERS.radius1,6*d.PARAMETERS.radius1)
         self.assertTrue(c.cond_1(points, radius))
-        
+
+    # LIC 1 is not met if all sets of three consecutive points can be contained within a circle of the specified radius.
     def test_lic1_inside(self):
         points = self.reset_points()
         radius = 1
@@ -50,7 +51,8 @@ class testDecide(unittest.TestCase):
         points[51] = (1,1)
         points[52] = (1,1)
         self.assertFalse(c.cond_1(points, radius))
-        
+
+    # LIC 1 is not met if the three consecutive points lie exactly on the radius of the circle.
     def test_lic1_on(self):
         points = np.zeros(shape=(100, 2))
         radius = 1
