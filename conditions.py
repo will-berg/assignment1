@@ -104,7 +104,8 @@ def cond_9(points, c_pts, d_pts, epsilon):
 	for i in range(len(points) - c_pts - d_pts - 2):
 		p1, p2, p3 = points[i], points[i + c_pts + 1], points[i + c_pts + d_pts + 2]
 		if angle(p1, p2, p3) < d.PI - epsilon or angle(p1, p2, p3) > d.PI + epsilon:
-			return True
+			if not(p2 == p1 or p2 == p3):
+				return True
 	return False
 
 def cond_10(points, e_pts, f_pts, area1):

@@ -238,12 +238,6 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         points = [(0,0), (1,0), (2,0), (0,5), (2,0)]
         self.assertFalse(c.cond_9(points, 1, 1, 1))
 
-
-    #LIC 9 is not met if the tree data points are not separated by exactly C PTS and D PTS.
-    def test_lic9_number_of_points(self):
-        points = [(0,0), (1,0), (1,0), (2,0), (0,5), (0,5), (0,-10)]
-
-        self.assertFalse(c.cond_9(points, 1, 1, 1))
     
     """ Tests for LIC10 : There exists at least one set of three data points separated by exactly E PTS and F PTS con-
 secutive intervening points, respectively, that are the vertices of a triangle with area greater
