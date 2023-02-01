@@ -223,22 +223,22 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
     #LIC 9 is met if angle is larger than PI + EPSILON, and the three data points are separated by exactly C PTS and D PTS.
     def test_lic9_angle_larger(self):
         points = [(0,0), (1,0), (2,0), (0,5), (0,10)]
-        self.assertTrue(points, d.PARAMETERS)
+        self.assertTrue(c.cond_9(points, d.PARAMETERS))
     
     #LIC 9 is met if angle is smaller than PI - EPSILON, and the three data points are separated by exactly C PTS and D PTS.
     def test_lic9_angle_smaller(self):
         points = [(0,0), (1,0), (2,0), (0,5), (0,-10)]
-        self.assertTrue(points, d.PARAMETERS)
+        self.assertTrue(c.cond_9(points, d.PARAMETERS))
 
     #LIC 9 is not met if either the first or the last pint coincide with the vertex.
     def test_lic9_angle_undefined(self):
         points = [(0,0), (1,0), (2,0), (0,5), (2,0)]
-        self.assertFalse(points, d.PARAMETERS)
+        self.assertFalse(c.cond_9(points, d.PARAMETERS))
 
     #LIC 9 is not met if the tree data points are not separated by exactly C PTS and D PTS.
     def test_lic9_number_of_points(self):
         points = [(0,0), (1,0), (1,0), (2,0), (0,5), (0,5), (0,-10)]
-        self.assertFalse(points, d.PARAMETERS)
+        self.assertFalse(c.cond_9(points, d.PARAMETERS))
     
     """ Tests for LIC10 : There exists at least one set of three data points separated by exactly E PTS and F PTS con-
 secutive intervening points, respectively, that are the vertices of a triangle with area greater
