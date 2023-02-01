@@ -93,7 +93,7 @@ def cond_8(points, a_pts, b_pts, radius):
 	if len(points) < 5:
 		return False
 	for i in range(len(points) - a_pts - b_pts):
-		p1, p2, p3 = points[i], points[i+a_pts], points[i+a_pts+b_pts]
+		p1, p2, p3 = points[i], points[i+a_pts+1], points[i+a_pts+b_pts+2]
 		if not circ_can_contain(radius, p1, p2, p3):
 			return True
 	return False
@@ -163,7 +163,7 @@ def dist(p1, p2):
 # Calculates the angle formed by the three points p1, p2 (vertex), and p3
 # https://stackoverflow.com/questions/1211212/how-to-calculate-an-angle-from-three-points
 def angle(p1, p2, p3):
-	return (np.arctan2(p2[1] - p1[1], p2[0] - p1[0]) - np.arctan2(p3[1] - p2[1], p3[0] - p2[0]) )% np.pi 
+	return (np.arctan2(p2[1] - p1[1], p2[0] - p1[0]) - np.arctan2(p3[1] - p2[1], p3[0] - p2[0]) )% np.pi
 
 # Calculates the area of a triangle given three points (shoelace formula)
 def area(p1, p2, p3):
