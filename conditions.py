@@ -92,7 +92,7 @@ def cond_7(points, k_pts, length1):
 def cond_8(points, a_pts, b_pts, radius):
 	if len(points) < 5:
 		return False
-	for i in range(len(points) - a_pts - b_pts):
+	for i in range(len(points) - a_pts - b_pts - 2):
 		p1, p2, p3 = points[i], points[i+a_pts+1], points[i+a_pts+b_pts+2]
 		if not circ_can_contain(radius, p1, p2, p3):
 			return True
