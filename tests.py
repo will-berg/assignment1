@@ -251,5 +251,49 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         g_pts = 0
         self.assertFalse(c.cond_11(points, g_pts))
 
+    # LIC 14 is not met if there are less than 5 points.
+    def test_lic14_not_enough_points(self):
+        points = np.zeros(shape=(4, 2))
+        e_pts = 1
+        f_pts = 1
+        area1 = 1
+        area2 = 2
+
+        self.assertFalse(c.cond_14(points, e_pts, f_pts, area1, area2))
+
+    # LIC 14 is met if the same set of points form an area both larger and smaller than the given areas.
+    def test_lic14_same_points_both_larger_smaller(self):
+        e_pts = 2
+        f_pts = 3
+        area1 = 1
+        area2 = 4
+
+        points = [[0, 0], [0,0], [0,0], [2, 0], [0,0], [0,0], [0,0], [0, 2]]
+
+        self.assertTrue(c.cond_14(points, e_pts, f_pts, area1, area2))
+
+    # LIC 14 is met if different sets of points are both larger and smaller than the areas.
+    def test_lic14_different_points_larger_smaller(self):
+        e_pts = 2
+        f_pts = 3
+        area1 = 2
+        area2 = 3
+
+        points = [[0,0], [0, 0], [0,0], [1, 0], [3, 0], [0,0], [0,0], [0, 1], [0, 3]]
+
+        self.assertTrue(c.cond_14(points, e_pts, f_pts, area1, area2))
+
+    # LIC 14 is not met if all triangles are smaller than the given areas.
+    def test_lic14_all_triangles_smaller(self):
+        points = np.zeros(shape=(10, 2))
+        e_pts = 2
+        f_pts = 3
+        area1 = 2
+        area2 = 3
+
+        # Since all points are (0,0), all triangles will have an area of 0,
+        # which is smaller than the given areas.
+        self.assertFalse(c.cond_14(points, e_pts, f_pts, area1, area2))
+
 if __name__ == '__main__':
     unittest.main()
