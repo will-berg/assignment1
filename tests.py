@@ -216,6 +216,39 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         points[55] = (3,1)
         self.assertFalse(c.cond_7(points, 3, 2))
 
+    # LIC 8 requires at least five points.
+    def test_lic8_less_than_five_points(self):
+        points = [[0,0], [1,1], [1,2]]
+        a_pts = 1
+        b_pts = 1
+        radius = 1
+
+        self.assertFalse(c.cond_8(points, a_pts, b_pts, radius))
+
+    # LIC 8 is met if three points are outside the radius of the circle. 
+    def test_lic8_points_outside_circle(self):
+        points = np.zeros(shape=(10, 2))
+        a_pts = 2
+        b_pts = 3
+        radius = 1
+
+        base = 2
+        points[base] = [-radius, 0]
+        points[base + a_pts + 1] = [radius, 0]
+        points[base + a_pts + 1 + b_pts + 1] = [0, radius + 1]
+
+        self.assertTrue(c.cond_8(points, a_pts, b_pts, radius))
+
+    # LIC 8 is not met if all sets of three points can be within the circle.
+    def test_lic8_points_inside_circle(self):
+        points = np.zeros(shape=(10, 2))
+        a_pts = 2
+        b_pts = 3
+        radius = 1
+
+        # Since all points is at [0, 0], they will all be able to fit inside the same circle.
+        self.assertFalse(c.cond_8(points, a_pts, b_pts, radius))
+
     #LIC 9 requires at least five points.
     def test_lic9_less_than_five_points(self):
         points = [(1,1),(1,1)]
@@ -240,7 +273,7 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
     def test_lic9_number_of_points(self):
         points = [(0,0), (1,0), (1,0), (2,0), (0,5), (0,5), (0,-10)]
         self.assertFalse(points, d.PARAMETERS)
-    
+
     """ Tests for LIC10 : There exists at least one set of three data points separated by exactly E PTS and F PTS con-
 secutive intervening points, respectively, that are the vertices of a triangle with area greater
 than AREA1"""
