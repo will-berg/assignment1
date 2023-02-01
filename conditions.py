@@ -98,13 +98,14 @@ def cond_8(points, a_pts, b_pts, radius):
 			return True
 	return False
 
-def cond_9(points, params):
+def cond_9(points, c_pts, d_pts, epsilon):
 	if len(points) < 5:
 		return False
-	for i in range(len(points) - params.c_pts - params.d_pts):
-		p1, p2, p3 = points[i], points[i+params.c_pts], points[i+params.c_pts+params.d_pts]
-		if angle(p1, p2, p3) < d.PI - params.epsilon or angle(p1, p2, p3) > d.PI + params.epsilon:
-			return True
+	for i in range(len(points) - c_pts - d_pts - 2):
+		p1, p2, p3 = points[i], points[i + c_pts + 1], points[i + c_pts + d_pts + 2]
+		if angle(p1, p2, p3) < d.PI - epsilon or angle(p1, p2, p3) > d.PI + epsilon:
+			if not(p2 == p1 or p2 == p3):
+				return True
 	return False
 
 def cond_10(points, e_pts, f_pts, area1):
