@@ -24,7 +24,7 @@ def set_CMV():
 	CMV = np.full(shape=d.DIMENSION, fill_value=False)
 	CMV[0] = c.cond_0(d.POINTS, d.PARAMETERS.length1)
 	CMV[1] = c.cond_1(d.POINTS, d.PARAMETERS.radius1)
-	CMV[2] = c.cond_2(d.POINTS, d.PARAMETERS)
+	CMV[2] = c.cond_2(d.POINTS, d.PARAMETERS.epsilon)
 	CMV[3] = c.cond_3(d.POINTS, d.PARAMETERS.area1)
 	CMV[4] = c.cond_4(d.POINTS, d.PARAMETERS.q_pts, d.PARAMETERS.quads)
 	CMV[5] = c.cond_5(d.POINTS)
@@ -35,7 +35,7 @@ def set_CMV():
 	CMV[10] = c.cond_10(d.POINTS, d.PARAMETERS.e_pts, d.PARAMETERS.f_pts, d.PARAMETERS.area1)
 	CMV[11] = c.cond_11(d.POINTS, d.PARAMETERS.g_pts)
 	CMV[12] = c.cond_12(d.POINTS, d.PARAMETERS.k_pts, d.PARAMETERS.length1, d.PARAMETERS.length2)
-	CMV[13] = c.cond_13(d.POINTS, d.PARAMETERS)
+	CMV[13] = c.cond_13(d.POINTS, d.PARAMETERS.a_pts, d.PARAMETERS.b_pts, d.PARAMETERS.radius1, d.PARAMETERS.radius2)
 	CMV[14] = c.cond_14(d.POINTS, d.PARAMETERS.e_pts, d.PARAMETERS.f_pts, d.PARAMETERS.area1, d.PARAMETERS.area2)
 	return CMV
 

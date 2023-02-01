@@ -16,11 +16,11 @@ def cond_1(points, radius):
 			return True
 	return False
 
-def cond_2(points, parameters):
+def cond_2(points, epsilon):
 	for i in range(len(points) - 2):
 		p1, p2, p3 = points[i], points[i+1], points[i+2]
 		theta = angle(p1, p2, p3)
-		if theta < (np.pi - parameters.epsilon) or theta > (np.pi + parameters.epsilon):
+		if theta < (np.pi - epsilon) or theta > (np.pi + epsilon):
 			if not(p2 == p1 or p2 == p3):
 				return True
 	return False
