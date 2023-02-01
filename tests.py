@@ -310,6 +310,48 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         g_pts = 0
         self.assertFalse(c.cond_11(points, g_pts))
 
+    # LIC 13 is met if the same set of three points lie both inside and outside of circles with dirrenent radii.
+    def test_lic13_same_points_both_inside_outside(self):
+        radius1 = 1
+        radius2 = 3
+        a_pts = 2
+        b_pts = 3
+
+        middle_radius = 2
+
+        points = [[-middle_radius,0], [0,0], [0,0], [middle_radius, 0], [0,0], [0,0], [0,0], [0, middle_radius]]
+
+        # There is only one set of three points possible to check,
+        # and they all lie outside the first circle and inside the second circle.
+        # This means this condition should be met.
+        self.assertTrue(c.cond_13(points, a_pts, b_pts, radius1, radius2))
+
+    # LIC 13 is met if different set of points is inside and outside the circles.
+    def test_lic13_different_points_inside_outside(self):
+        radius1 = 2
+        radius2 = 3
+        a_pts = 2
+        b_pts = 3
+
+        radius_inside = 1
+        radius_outside = 4
+
+        points = [[-radius_inside,0], [-radius_outside,10], [0,0], [radius_inside, 0], [radius_outside,10], [0,0], [0,0], [0, radius_inside], [0, 10 + radius_outside]]
+
+        # The fist set of points will be inside both circles and the second set of points will be outside both circles,
+        # which means that LIC 13 will be met using both sets of points.
+        self.assertTrue(c.cond_13(points, a_pts, b_pts, radius1, radius2))
+
+    # LIC 13 is not met if all sets of points is inside both circles.
+    def test_lic13_all_points_inside(self):
+        points = np.zeros(shape=(10,2))
+        radius1 = 2
+        radius2 = 3
+        a_pts = 2
+        b_pts = 3
+
+        self.assertFalse(c.cond_13(points, a_pts, b_pts, radius1, radius2))
+
     # LIC 14 is not met if there are less than 5 points.
     def test_lic14_not_enough_points(self):
         points = np.zeros(shape=(4, 2))
