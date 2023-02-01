@@ -75,7 +75,6 @@ class testDecide(unittest.TestCase):
         points[50] = (0,0)
         points[51] = (2,0)
         points[52] = (0,10)
-        print(c.angle(points[50], points[51], points[52]))
         self.assertTrue(c.cond_2(points, d.PARAMETERS))
 
     def test_lic2_angle_undefined(self):
