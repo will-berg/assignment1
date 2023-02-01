@@ -6,6 +6,7 @@ import conditions as c
 import declarations as d
 
 class testDecide(unittest.TestCase):
+    # method used to reset the data for individual conidtion testing
     def reset_points(self):
         x = d.X
         y = d.Y
@@ -14,8 +15,9 @@ class testDecide(unittest.TestCase):
             points.append((x[i], y[i]))
         return points
 
+    """There exists at least one set of two consecutive data points that are a distance greater 
+    than the length, LENGTH1, apart."""
     def test_lic0_greater(self):
-        """There exists at least one set of two consecutive data points that are a distance greater than the length, LENGTH1, apart."""
         points = self.reset_points()
         length = 1
 
@@ -153,6 +155,8 @@ with area greater than AREA1. AREA1 is fixed to 2."""
         points[60]=(-1,-1) #quadrant III
         self.assertFalse(c.cond_4(points, 10, 3))
 
+    '''Tests for LIC5: There exists at least one set of two consecutive data points, (X[i],Y[i]) and (X[j],Y[j]), such
+       that X[j] - X[i] < 0. (where i = j-1)'''
     def test_lic5_all_points_equal(self):
         points = np.zeros(shape=(100, 2))
         self.assertFalse(c.cond_5(points))
@@ -161,6 +165,12 @@ with area greater than AREA1. AREA1 is fixed to 2."""
         points = [[0, 0], [1, 0]]
         self.assertTrue(c.cond_5(points))
 
+    ''' Tests for LIC6:  There exists at least one set of N PTS consecutive data points such that at least one of the points 
+    lies a distance greater than DIST from the line joining the first and last of these N PTS points. 
+    If the first and last points of these N PTS are identical, then the calculated distance to compare with DIST 
+    will be the distance from the coincident point to all other points of the N PTS consecutive points. 
+    The condition is not met when NUMPOINTS < 3.
+    (3 ≤ N PTS ≤ NUMPOINTS), (0 ≤ DIST)'''
     def test_lic6_less_than_three_points(self):
         points = [[0,0]]
         n = 1
@@ -216,6 +226,10 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         points[55] = (3,1)
         self.assertFalse(c.cond_7(points, 3, 2))
 
+    '''Tests for LIC8: There exists at least one set of three data points separated by exactly A PTS and B PTS consecutive 
+    intervening points, respectively, that cannot be contained within or on a circle of radius RADIUS1. 
+    The condition is not met when NUMPOINTS < 5.
+    1≤A PTS,1≤B PTS '''
     # LIC 8 requires at least five points.
     def test_lic8_less_than_five_points(self):
         points = [[0,0], [1,1], [1,2]]
@@ -249,6 +263,8 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         # Since all points is at [0, 0], they will all be able to fit inside the same circle.
         self.assertFalse(c.cond_8(points, a_pts, b_pts, radius))
 
+    '''Tests for LIC9: There exists at least one set of three data points separated by exactly C PTS and D PTS
+     consecutive intervening points, respectively, that form an angle such that: '''
     #LIC 9 requires at least five points.
     def test_lic9_less_than_five_points(self):
         points = [(1,1),(1,1)]
