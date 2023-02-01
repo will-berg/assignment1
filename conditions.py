@@ -98,10 +98,10 @@ def cond_8(points, a_pts, b_pts, radius):
 			return True
 	return False
 
-def cond_9():
-	if numpoints < 5:
+def cond_9(points, params):
+	if len(points) < 5:
 		return False
-	for i in range(numpoints - params.c_pts - params.d_pts):
+	for i in range(len(points) - params.c_pts - params.d_pts):
 		p1, p2, p3 = points[i], points[i+params.c_pts], points[i+params.c_pts+params.d_pts]
 		if angle(p1, p2, p3) < d.PI - params.epsilon or angle(p1, p2, p3) > d.PI + params.epsilon:
 			return True
@@ -141,15 +141,15 @@ def cond_12():
 def cond_13():
 	return True
 
-def cond_14():
+def cond_14(points, e_pts, f_pts, area1, area2):
 	cond_1, cond_2 = False, False
-	if numpoints < 5:
+	if len(points) < 5:
 		return False
-	for i in range(numpoints - params.e_pts - params.f_pts):
-		p1, p2, p3 = points[i], points[i+params.e_pts], points[i+params.e_pts+params.f_pts]
-		if area(p1, p2, p3) > params.area1:
+	for i in range(len(points) - e_pts - f_pts - 2):
+		p1, p2, p3 = points[i], points[i + e_pts + 1], points[i + e_pts + f_pts + 2]
+		if area(p1, p2, p3) > area1:
 			cond_1 = True
-		if area(p1, p2, p3) < params.area2:
+		if area(p1, p2, p3) < area2:
 			cond_2 = True
 	return cond_1 and cond_2
 
