@@ -75,7 +75,6 @@ class testDecide(unittest.TestCase):
         points[50] = (0,0)
         points[51] = (2,0)
         points[52] = (0,10)
-        print(c.angle(points[50], points[51], points[52]))
         self.assertTrue(c.cond_2(points, d.PARAMETERS))
 
     def test_lic2_angle_undefined(self):
@@ -217,6 +216,39 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         points[55] = (3,1)
         self.assertFalse(c.cond_7(points, 3, 2))
 
+    # LIC 8 requires at least five points.
+    def test_lic8_less_than_five_points(self):
+        points = [[0,0], [1,1], [1,2]]
+        a_pts = 1
+        b_pts = 1
+        radius = 1
+
+        self.assertFalse(c.cond_8(points, a_pts, b_pts, radius))
+
+    # LIC 8 is met if three points are outside the radius of the circle. 
+    def test_lic8_points_outside_circle(self):
+        points = np.zeros(shape=(10, 2))
+        a_pts = 2
+        b_pts = 3
+        radius = 1
+
+        base = 2
+        points[base] = [-radius, 0]
+        points[base + a_pts + 1] = [radius, 0]
+        points[base + a_pts + 1 + b_pts + 1] = [0, radius + 1]
+
+        self.assertTrue(c.cond_8(points, a_pts, b_pts, radius))
+
+    # LIC 8 is not met if all sets of three points can be within the circle.
+    def test_lic8_points_inside_circle(self):
+        points = np.zeros(shape=(10, 2))
+        a_pts = 2
+        b_pts = 3
+        radius = 1
+
+        # Since all points is at [0, 0], they will all be able to fit inside the same circle.
+        self.assertFalse(c.cond_8(points, a_pts, b_pts, radius))
+
     #LIC 9 requires at least five points.
     def test_lic9_less_than_five_points(self):
         points = [(1,1),(1,1)]
@@ -238,7 +270,11 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         points = [(0,0), (1,0), (2,0), (0,5), (2,0)]
         self.assertFalse(c.cond_9(points, 1, 1, 1))
 
-    
+    #LIC 9 is not met if the tree data points are not separated by exactly C PTS and D PTS.
+    def test_lic9_number_of_points(self):
+        points = [(0,0), (1,0), (1,0), (2,0), (0,5), (0,5), (0,-10)]
+        self.assertFalse(c.cond_9(points, d.PARAMETERS))
+
     """ Tests for LIC10 : There exists at least one set of three data points separated by exactly E PTS and F PTS con-
 secutive intervening points, respectively, that are the vertices of a triangle with area greater
 than AREA1"""
@@ -274,6 +310,66 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         points = [[2, 0], [1, 0]]
         g_pts = 0
         self.assertFalse(c.cond_11(points, g_pts))
+    
+    #LIC 12 requires more than three points
+    def test_lic12_less_than_three_points(self):
+        points = [(1,2), (2,3)]
+        self.assertFalse(c.cond_12(points, 1,1,1))
+
+    #LIC 12 requires two points to be further apart than length1 and closer than length2 with K PTS between them, can also be the same or different points.
+    def test_lic12_positive(self):
+        points = [(1,1),(0,0),(0,0),(3,3)]
+        self.assertTrue(c.cond_12(points, 2, 2, 4))
+
+    #LIC 12 does should be false if the distance is 0.
+    def test_lic12_negative(self):
+        d.PARAMETERS.k_pts = 2
+        d.PARAMETERS.length1 = 2
+        d.PARAMETERS.length2 = 4
+        points = [(1,1),(1,1),(1,1),(1,1)]
+        self.assertFalse(c.cond_12(points, 2,2,4))
+
+    # LIC 13 is met if the same set of three points lie both inside and outside of circles with dirrenent radii.
+    def test_lic13_same_points_both_inside_outside(self):
+        radius1 = 1
+        radius2 = 3
+        a_pts = 2
+        b_pts = 3
+
+        middle_radius = 2
+
+        points = [[-middle_radius,0], [0,0], [0,0], [middle_radius, 0], [0,0], [0,0], [0,0], [0, middle_radius]]
+
+        # There is only one set of three points possible to check,
+        # and they all lie outside the first circle and inside the second circle.
+        # This means this condition should be met.
+        self.assertTrue(c.cond_13(points, a_pts, b_pts, radius1, radius2))
+
+    # LIC 13 is met if different set of points is inside and outside the circles.
+    def test_lic13_different_points_inside_outside(self):
+        radius1 = 2
+        radius2 = 3
+        a_pts = 2
+        b_pts = 3
+
+        radius_inside = 1
+        radius_outside = 4
+
+        points = [[-radius_inside,0], [-radius_outside,10], [0,0], [radius_inside, 0], [radius_outside,10], [0,0], [0,0], [0, radius_inside], [0, 10 + radius_outside]]
+
+        # The fist set of points will be inside both circles and the second set of points will be outside both circles,
+        # which means that LIC 13 will be met using both sets of points.
+        self.assertTrue(c.cond_13(points, a_pts, b_pts, radius1, radius2))
+
+    # LIC 13 is not met if all sets of points is inside both circles.
+    def test_lic13_all_points_inside(self):
+        points = np.zeros(shape=(10,2))
+        radius1 = 2
+        radius2 = 3
+        a_pts = 2
+        b_pts = 3
+
+        self.assertFalse(c.cond_13(points, a_pts, b_pts, radius1, radius2))
 
     # LIC 14 is not met if there are less than 5 points.
     def test_lic14_not_enough_points(self):

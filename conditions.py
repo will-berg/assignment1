@@ -89,12 +89,12 @@ def cond_7(points, k_pts, length1):
 			return True
 	return False
 
-def cond_8():
-	if numpoints < 5:
+def cond_8(points, a_pts, b_pts, radius):
+	if len(points) < 5:
 		return False
-	for i in range(numpoints - params.a_pts - params.b_pts):
-		p1, p2, p3 = points[i], points[i+params.a_pts], points[i+params.a_pts+params.b_pts]
-		if not circ_can_contain(params.radius1, p1, p2, p3):
+	for i in range(len(points) - a_pts - b_pts - 2):
+		p1, p2, p3 = points[i], points[i+a_pts+1], points[i+a_pts+b_pts+2]
+		if not circ_can_contain(radius, p1, p2, p3):
 			return True
 	return False
 
@@ -125,22 +125,41 @@ def cond_11(points, g_pts):
 			return True
 	return False
 
-def cond_12():
-	if numpoints < 3:
+def cond_12(points, k_pts, length1, length2):
+	if len(points) < 3:
 		return False
 	cond1 = False
 	cond2 = False
-	for i in range(numpoints - params.k_pts -1):
-		if dist(points[i], points[i + params.k_pts + 1]) > params.length1:
+	for i in range(len(points) - k_pts -1):
+		if dist(points[i], points[i + k_pts + 1]) > length1:
 			cond1 = True
-		if dist(points[i], points[i + params.k_pts + 1]) < params.length2:
+		if dist(points[i], points[i + k_pts + 1]) < length2:
 			cond2 = True
 		if cond1&cond2:
 			return True
 	return False
 
-def cond_13():
-	return True
+def cond_13(points, a_pts, b_pts, radius1, radius2):
+	# contained in radius 1
+	condition1 = False
+	# contained in radius 2
+	condition2 = False
+
+	if len(points) < 5:
+		return False
+	# 3 points, first and second seperated exactly by a, second and third separated exactly by b. So i would arrive to n-a-b-1
+	# example, a=2, b=3, n=10, i would range from 0 to 3
+	for i in range(0, len(points) - a_pts - b_pts - 2):
+		p1 = points[i]
+		p2 = points[i + a_pts + 1]
+		p3 = points[i + a_pts + b_pts + 2]
+		if (not circ_can_contain(radius1, p1, p2, p3)):
+			condition1 = True
+		if circ_can_contain(radius2, p1, p2, p3):
+			condition2 = True
+
+	return condition1 and condition2
+
 
 def cond_14(points, e_pts, f_pts, area1, area2):
 	cond_1, cond_2 = False, False
@@ -164,7 +183,7 @@ def dist(p1, p2):
 # Calculates the angle formed by the three points p1, p2 (vertex), and p3
 # https://stackoverflow.com/questions/1211212/how-to-calculate-an-angle-from-three-points
 def angle(p1, p2, p3):
-	return (np.arctan2(p2[1] - p1[1], p2[0] - p1[0]) - np.arctan2(p3[1] - p2[1], p3[0] - p2[0]) )% np.pi 
+	return (np.arctan2(p2[1] - p1[1], p2[0] - p1[0]) - np.arctan2(p3[1] - p2[1], p3[0] - p2[0]) )% np.pi
 
 # Calculates the area of a triangle given three points (shoelace formula)
 def area(p1, p2, p3):
