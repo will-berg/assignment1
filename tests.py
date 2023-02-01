@@ -277,6 +277,27 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         points = [[2, 0], [1, 0]]
         g_pts = 0
         self.assertFalse(c.cond_11(points, g_pts))
+    
+    #LIC 12 requires more than three points
+    def test_lic12_less_than_three_points(self):
+        points = [(1,2), (2,3)]
+        self.assertFalse(c.cond_12(points, d.PARAMETERS))
+
+    #LIC 12 requires two points to be further apart than length1 and closer than length2 with K PTS between them, can also be the same or different points.
+    def test_lic12_positive(self):
+        d.PARAMETERS.k_pts = 2
+        d.PARAMETERS.length1 = 2
+        d.PARAMETERS.length2 = 4
+        points = [(1,1),(0,0),(0,0),(3,3)]
+        self.assertTrue(c.cond_12(points, d.PARAMETERS))
+
+    #LIC 12 does should be false if the distance is 0.
+    def test_lic12_negative(self):
+        d.PARAMETERS.k_pts = 2
+        d.PARAMETERS.length1 = 2
+        d.PARAMETERS.length2 = 4
+        points = [(1,1),(1,1),(1,1),(1,1)]
+        self.assertFalse(c.cond_12(points, d.PARAMETERS))
 
     # LIC 14 is not met if there are less than 5 points.
     def test_lic14_not_enough_points(self):
