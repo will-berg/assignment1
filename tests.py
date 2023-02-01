@@ -297,5 +297,10 @@ tervening points that are a distance greater than the length, LENGTH1, apart."""
         # which is smaller than the given areas.
         self.assertFalse(c.cond_14(points, e_pts, f_pts, area1, area2))
 
+class IntegrationTests(unittest.TestCase):
+    # With the default config, DECIDE should return False.
+    def test_default_config(self):
+        self.assertFalse(decide.decide())
+
 if __name__ == '__main__':
     unittest.main()
