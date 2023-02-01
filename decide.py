@@ -23,8 +23,8 @@ def decide():
 def set_CMV():
 	CMV = np.full(shape=d.DIMENSION, fill_value=False)
 	CMV[0] = c.cond_0(d.POINTS, d.PARAMETERS.length1)
-	CMV[1] = c.cond_1(d.POINTS, d.PARAMETERS)
-	CMV[2] = c.cond_2(d.POINTS, d.PARAMETERS.radius1)
+	CMV[1] = c.cond_1(d.POINTS, d.PARAMETERS.radius1)
+	CMV[2] = c.cond_2(d.POINTS, d.PARAMETERS)
 	CMV[3] = c.cond_3(d.POINTS, d.PARAMETERS.area1)
 	CMV[4] = c.cond_4(d.POINTS, d.PARAMETERS.q_pts, d.PARAMETERS.quads)
 	CMV[5] = c.cond_5(d.POINTS)
